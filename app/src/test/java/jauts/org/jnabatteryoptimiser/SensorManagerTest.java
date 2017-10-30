@@ -9,6 +9,6 @@ import org.junit.Test;
 public class SensorManagerTest {
     @Test
     public void senseDataTest() {
-        
+
     }
 }
