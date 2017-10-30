@@ -40,41 +40,9 @@ public class SenseFromAllPullSensorsTask extends AsyncTask<Void, Void, Void>
 	@Override
 	protected Void doInBackground(Void... params)
 	{
-		Log.d("Sensor Data", " === Starting " + LOG_TAG + " ===");
 		for (SensorEnum s : SensorEnum.values())
 		{
 			if (s.isPull()) {
-
-				if (s.getType() == SensorUtils.SENSOR_TYPE_WIFI)
-				{
-					try
-					{
-						// Sense with default parameters
-						Log.d(LOG_TAG, "Sensing from: " + s.getName());
-						WifiData data = (WifiData) sensorManager.getDataFromSensor(SensorUtils.SENSOR_TYPE_WIFI);
-						JSONFormatter f = DataFormatter.getJSONFormatter(context, data.getSensorType());
-						String str = f.toString(data);
-						Log.d("WIFIJSON", str);
-						// To store/format your data, check out the SensorDataManager library
-						Log.d(LOG_TAG, "Sensed from: " + SensorUtils.getSensorName(data.getSensorType()));
-					}
-					catch (Exception e)
-					{
-						e.printStackTrace();
-					}
-				}
-				if (s.getType() == SensorUtils.SENSOR_TYPE_BLUETOOTH) {
-					Log.d(LOG_TAG, "Sensing from: " + s.getName());
-					try {
-						BluetoothData bthdata = (BluetoothData) sensorManager.getDataFromSensor(SensorUtils.SENSOR_TYPE_BLUETOOTH);
-						JSONFormatter f = DataFormatter.getJSONFormatter(context, bthdata.getSensorType());
-						Log.d("BLUETHJSON", f.toString(bthdata));
-						Log.d(LOG_TAG, "Sensed from: " + SensorUtils.getSensorName(bthdata.getSensorType()));
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-
 
 				if (s.getType() == SensorUtils.SENSOR_TYPE_LOCATION) {
 					Log.d(LOG_TAG, "Sensing from: " + s.getName());
@@ -89,7 +57,6 @@ public class SenseFromAllPullSensorsTask extends AsyncTask<Void, Void, Void>
 				}
 			}
 		}
-		Log.d("Sensor Data", " === Finished " + LOG_TAG + " ===");
 		return null;
 	}
 
