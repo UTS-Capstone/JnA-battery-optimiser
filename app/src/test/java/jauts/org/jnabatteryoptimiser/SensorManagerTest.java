@@ -1,5 +1,7 @@
 package jauts.org.jnabatteryoptimiser;
 
+import com.ubhave.sensormanager.ESSensorManager;
+
 import org.junit.Test;
 
 /**
@@ -9,6 +11,6 @@ import org.junit.Test;
 public class SensorManagerTest {
     @Test
     public void senseDataTest() {
-
+        
     }
 }

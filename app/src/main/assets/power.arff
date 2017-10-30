@@ -1,0 +1,20 @@
+@RELATION POWER
+@ATTRIBUTE location {home,office,other}
+@ATTRIBUTE time {morning,noon,evening,night}
+@ATTRIBUTE wifi {on,off}
+@ATTRIBUTE application {netflix,youtube,camera,game}
+@ATTRIBUTE wififlip {yes,no}
+@DATA
+other,evening,on,game,no
+other,evening,off,netflix,yes
+other,night,off,camera,no
+other,night,on,game,yes
+office,morning,on,game,no
+office,morning,on,game,no
+office,morning,off,netflix,yes
+home,night,on,netflix,no
+home,night,on,youtube,no
+home,noon,off,game,no
+home,evening,on,netflix,no
+home,morning,on,game,no
+office,noon,off,netflix,yes
