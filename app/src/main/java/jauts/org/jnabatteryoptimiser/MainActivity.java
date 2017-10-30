@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity {
         WifiManager wifiManager = (WifiManager) this.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         try {
             boolean wifiEnabled = wifiManager.isWifiEnabled();
-            System.out.println(wifiEnabled);
             if (request != wifiEnabled) {
                 wifiManager.setWifiEnabled(request);
             }
