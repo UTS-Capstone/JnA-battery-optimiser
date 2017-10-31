@@ -15,8 +15,13 @@ import com.ubhave.sensormanager.data.push.ScreenData;
 import com.ubhave.sensormanager.sensors.SensorEnum;
 import com.ubhave.sensormanager.sensors.SensorUtils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class SenseFromAllPushSensorsTask extends SubscribeTask implements SensorDataListener
 {
+    private final Logger logger = LoggerFactory.getLogger(SenseFromAllPushSensorsTask.class);
+
     private final static String LOG_TAG = "SensePush";
     private Context context;
 
@@ -35,7 +40,8 @@ public class SenseFromAllPushSensorsTask extends SubscribeTask implements Sensor
                 ScreenData pdata = (ScreenData) sensorData;
                 JSONFormatter f = DataFormatter.getJSONFormatter(context, pdata.getSensorType());
                 try {
-                    Log.d("PhoneScreenJSON", f.toString(pdata));
+                    //Log.d("PhoneScreenJSON", f.toString(pdata));
+                    logger.debug(f.toString(pdata));
                 } catch (DataHandlerException e) {
                     e.printStackTrace();
                 }
@@ -56,7 +62,8 @@ public class SenseFromAllPushSensorsTask extends SubscribeTask implements Sensor
                         ConnectionStateData conndata = (ConnectionStateData) sensorData;
                         JSONFormatter f = DataFormatter.getJSONFormatter(context, conndata.getSensorType());
                         try {
-                            Log.d("ConnStateJSON", f.toString(conndata));
+                            //Log.d("ConnStateJSON", f.toString(conndata));
+                            logger.debug(f.toString(conndata));
                         } catch (DataHandlerException e) {
                             e.printStackTrace();
                         }
@@ -75,7 +82,8 @@ public class SenseFromAllPushSensorsTask extends SubscribeTask implements Sensor
                         BatteryData batterydata = (BatteryData) sensorData;
                         JSONFormatter f = DataFormatter.getJSONFormatter(context, batterydata.getSensorType());
                         try {
-                            Log.d("BatteryJSON", f.toString(batterydata));
+                            //Log.d("BatteryJSON", f.toString(batterydata));
+                            logger.debug(f.toString(batterydata));
                         } catch (DataHandlerException e) {
                             e.printStackTrace();
                         }

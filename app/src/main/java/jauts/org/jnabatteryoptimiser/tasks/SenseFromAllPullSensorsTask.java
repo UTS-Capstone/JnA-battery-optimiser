@@ -16,8 +16,12 @@ import com.ubhave.sensormanager.data.pull.WifiData;
 import com.ubhave.sensormanager.sensors.SensorEnum;
 import com.ubhave.sensormanager.sensors.SensorUtils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class SenseFromAllPullSensorsTask extends AsyncTask<Void, Void, Void>
 {
+	private final Logger logger = LoggerFactory.getLogger(SenseFromAllPullSensorsTask.class);
 	private final static String LOG_TAG = "SensePull";
 	private ESSensorManager sensorManager;
 	private Context context;
@@ -49,7 +53,8 @@ public class SenseFromAllPullSensorsTask extends AsyncTask<Void, Void, Void>
 					try {
 						LocationData locdata = (LocationData) sensorManager.getDataFromSensor(SensorUtils.SENSOR_TYPE_LOCATION);
 						JSONFormatter f = DataFormatter.getJSONFormatter(context, locdata.getSensorType());
-						Log.d("LOCJSON", f.toString(locdata));
+						//Log.d("LOCJSON", f.toString(locdata));
+						logger.debug(f.toString(locdata));
 						Log.d(LOG_TAG, "Sensed from: " + SensorUtils.getSensorName(locdata.getSensorType()));
 					} catch (Exception e) {
 						e.printStackTrace();

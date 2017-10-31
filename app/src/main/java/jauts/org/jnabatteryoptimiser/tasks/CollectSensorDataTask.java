@@ -13,6 +13,9 @@ import com.ubhave.sensormanager.config.GlobalConfig;
 import com.ubhave.sensormanager.data.pull.WifiData;
 import com.ubhave.sensormanager.sensors.SensorUtils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Created by liangze on 30/10/17.
  *
@@ -20,6 +23,8 @@ import com.ubhave.sensormanager.sensors.SensorUtils;
  */
 
 public class CollectSensorDataTask extends AsyncTask<Void,Void,Void> {
+
+    private final Logger logger = LoggerFactory.getLogger(CollectSensorDataTask.class);
 
     private static final String TAG_WIFI_STATUS = "WifiStatus";
 
@@ -73,7 +78,8 @@ public class CollectSensorDataTask extends AsyncTask<Void,Void,Void> {
         } catch (DataHandlerException e) {
             e.printStackTrace();
         }
-        Log.d(TAG_WIFI_STATUS, str);
+        //Log.d(TAG_WIFI_STATUS, str);
+        logger.debug(str);
         return str;
     }
 }
