@@ -1,6 +1,8 @@
 package jauts.org.jnabatteryoptimiser.views;
 
 import android.Manifest;
+import android.content.Intent;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         grantLocation();
+        grantUsageStat();
         collectSensorData();
     }
 
@@ -27,8 +30,20 @@ public class MainActivity extends AppCompatActivity {
         new RxPermissions(this)
                 .request(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
                 .subscribe(granted -> {
-                        Log.d("LocationGranted", String.valueOf(granted));
+                    Log.d("LocationGranted", String.valueOf(granted));
                 });
+
+    }
+
+    private void grantUsageStat() {
+        Boolean isGranted = false;
+        isGranted = new RxPermissions(this)
+                .isGranted(Manifest.permission.PACKAGE_USAGE_STATS);
+
+        //if (! isGranted) {
+          //  startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
+        //}
+        Log.d("UsageStatGranted", String.valueOf(isGranted));
 
     }
 
