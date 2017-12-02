@@ -16,6 +16,7 @@ import jauts.org.jnabatteryoptimiser.PushSensorsFragment;
 public class PagerAdapter extends FragmentStatePagerAdapter {
 
     int mNoOfTabs;
+    private String tabTitles[] = new String[]{"Pull Sensors", "Push Sensors", "Running Apps"};
 
     public PagerAdapter(FragmentManager fm, int NumberOfTabs)
     {
@@ -42,7 +43,13 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     }
 
     @Override
+    public CharSequence getPageTitle(int position) {
+        // Generate title based on item position
+        return tabTitles[position];
+    }
+
+    @Override
     public int getCount() {
-        return 0;
+        return mNoOfTabs;
     }
 }
