@@ -1,38 +1,30 @@
-package jauts.org.jnabatteryoptimiser.views;
+package jauts.org.jnabatteryoptimiser;
 
-import android.Manifest;
-import android.os.Bundle;
-import android.util.Log;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 
-import com.tbruyelle.rxpermissions2.RxPermissions;
-
-import jauts.org.jnabatteryoptimiser.AppsFragment;
 import jauts.org.jnabatteryoptimiser.adapters.PagerAdapter;
-import jauts.org.jnabatteryoptimiser.PullSensorsFragment;
-import jauts.org.jnabatteryoptimiser.PushSensorsFragment;
-import jauts.org.jnabatteryoptimiser.R;
 import jauts.org.jnabatteryoptimiser.dummy.DummyContent;
+import jauts.org.jnabatteryoptimiser.tasks.SenseFromAllEnvSensorsTask;
 import jauts.org.jnabatteryoptimiser.tasks.SenseFromAllPullSensorsTask;
 import jauts.org.jnabatteryoptimiser.tasks.SenseFromAllPushSensorsTask;
 
 public class MainActivity extends AppCompatActivity implements PullSensorsFragment.OnListFragmentInteractionListener, PushSensorsFragment.OnListFragmentInteractionListener, AppsFragment.OnListFragmentInteractionListener {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        TabLayout tabLayout = (TabLayout)findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Pull Sensors"));
         tabLayout.addTab(tabLayout.newTab().setText("Push Sensors"));
         tabLayout.addTab(tabLayout.newTab().setText("Running Apps"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        final ViewPager viewPager = (ViewPager)findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         tabLayout.setupWithViewPager(viewPager);
         viewPager.setAdapter(adapter);
@@ -55,26 +47,48 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
             }
         });
 
-        grantLocation();
-        collectSensorData();
+        // test weka lib
+        // new WekaMlTask(this).execute();
+
+        // test sensor manager
+        startPull();
     }
 
-    private void grantLocation() {
-        new RxPermissions(this)
-                .request(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
-                .subscribe(granted -> {
-                    Log.d("LocationGranted", String.valueOf(granted));
-                });
 
+
+    public void startPull() {
+        new SenseFromAllPullSensorsTask(this)
+        {
+            @Override
+            protected void onPostExecute(Void result)
+            {
+                super.onPostExecute(result);
+                //startEnvironment();
+                startPush();
+            }
+        }.execute();
     }
 
-    private void collectSensorData() {
-        //new CollectSensorDataTask(this).execute();
+    private void startEnvironment()
+    {
+        new SenseFromAllEnvSensorsTask(this)
+        {
+            @Override
+            protected void onPostExecute(Void result)
+            {
+                super.onPostExecute(result);
+                startPush();
+            }
+        }.execute();
+    }
+
+    private void startPush()
+    {
         new SenseFromAllPushSensorsTask(this).execute();
-        new SenseFromAllPullSensorsTask(this).execute();
     }
 
     @Override
     public void onListFragmentInteraction(DummyContent.DummyItem item) {
+
     }
 }
