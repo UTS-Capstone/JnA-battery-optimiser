@@ -1,4 +1,4 @@
-package jauts.org.jnabatteryoptimiser;
+package jauts.org.jnabatteryoptimiser.adapters;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;

@@ -10,10 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import jauts.org.jnabatteryoptimiser.adapters.MyPullSensorsRecyclerViewAdapter;
 import jauts.org.jnabatteryoptimiser.dummy.DummyContent;
 import jauts.org.jnabatteryoptimiser.dummy.DummyContent.DummyItem;
-
-import java.util.List;
 
 /**
  * A fragment representing a list of Items.

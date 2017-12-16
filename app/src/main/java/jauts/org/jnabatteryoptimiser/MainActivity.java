@@ -4,14 +4,12 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.TabHost;
 
+import jauts.org.jnabatteryoptimiser.adapters.PagerAdapter;
 import jauts.org.jnabatteryoptimiser.dummy.DummyContent;
 import jauts.org.jnabatteryoptimiser.tasks.SenseFromAllEnvSensorsTask;
 import jauts.org.jnabatteryoptimiser.tasks.SenseFromAllPullSensorsTask;
 import jauts.org.jnabatteryoptimiser.tasks.SenseFromAllPushSensorsTask;
-import jauts.org.jnabatteryoptimiser.tasks.WekaMlTask;
 
 public class MainActivity extends AppCompatActivity implements PullSensorsFragment.OnListFragmentInteractionListener, PushSensorsFragment.OnListFragmentInteractionListener, AppsFragment.OnListFragmentInteractionListener {
 

@@ -1,4 +1,4 @@
-package jauts.org.jnabatteryoptimiser;
+package jauts.org.jnabatteryoptimiser.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import jauts.org.jnabatteryoptimiser.PushSensorsFragment.OnListFragmentInteractionListener;
+import jauts.org.jnabatteryoptimiser.R;
 import jauts.org.jnabatteryoptimiser.dummy.DummyContent.DummyItem;
 
 import java.util.List;
