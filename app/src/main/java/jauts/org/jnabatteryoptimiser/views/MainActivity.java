@@ -1,15 +1,19 @@
 package jauts.org.jnabatteryoptimiser.views;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import jauts.org.jnabatteryoptimiser.AppsFragment;
+import jauts.org.jnabatteryoptimiser.LoggingService;
 import jauts.org.jnabatteryoptimiser.adapters.PagerAdapter;
 import jauts.org.jnabatteryoptimiser.PullSensorsFragment;
 import jauts.org.jnabatteryoptimiser.PushSensorsFragment;
@@ -20,6 +24,7 @@ import jauts.org.jnabatteryoptimiser.tasks.SenseFromAllPushSensorsTask;
 
 public class MainActivity extends AppCompatActivity implements PullSensorsFragment.OnListFragmentInteractionListener, PushSensorsFragment.OnListFragmentInteractionListener, AppsFragment.OnListFragmentInteractionListener {
 
+    private Button mLoggingSwitchBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,15 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
+            }
+        });
+
+        mLoggingSwitchBtn = (Button) findViewById(R.id.loggingServiceSwitch);
+        mLoggingSwitchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent startIntent = new Intent(MainActivity.this, LoggingService.class);
+                startService(startIntent);
             }
         });
 
