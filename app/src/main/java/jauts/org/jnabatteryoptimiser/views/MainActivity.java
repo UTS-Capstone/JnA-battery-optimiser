@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
 
     }
 
+
     private void collectSensorData() {
         //new CollectSensorDataTask(this).execute();
         new SenseFromAllPushSensorsTask(this).execute();
