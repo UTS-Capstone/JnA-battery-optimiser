@@ -29,8 +29,7 @@
             android:backgroundTint="#17BDFF"
             android:text="Sample Once"
             android:textColor="#FBFCFD"
-            android:textSize="14sp"
-            android:textStyle="bold"/>
+            android:textSize="14sp"/>
 
         <Button
             android:id="@+id/loggingServiceSwitch"
@@ -42,8 +41,7 @@
             android:backgroundTint="#17BDFF"
             android:text="Start Logging Service"
             android:textColor="#FBFCFD"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textSize="14sp" />
     </RelativeLayout>
 
     <Button
@@ -58,7 +56,6 @@
         android:text="Export to CSV File"
         android:textColor="#FBFCFD"
         android:textSize="14sp"
-        android:textStyle="bold"
         android:topLeftRadius="10sp"
         android:topRightRadius="10sp"/>
 
