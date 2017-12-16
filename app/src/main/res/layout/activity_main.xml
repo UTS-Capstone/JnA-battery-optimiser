@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:background="#24292C"
+    android:orientation="vertical"
+    android:textColor="#FBFCFD">
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom">
+        android:layout_gravity="bottom"
+        android:background="#24292C"
+        android:textColor="#FBFCFD">
 
         <Button
             android:id="@+id/samplebtn"
@@ -18,41 +22,58 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
             android:layout_toLeftOf="@+id/loggingServiceSwitch"
             android:layout_toStartOf="@+id/loggingServiceSwitch"
-            android:text="Sample Once" />
+            android:backgroundTint="#17BDFF"
+            android:text="Sample Once"
+            android:textColor="#FBFCFD"
+            android:textSize="14dp"
+            android:textStyle="bold"/>
 
         <Button
             android:id="@+id/loggingServiceSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="Start Logging Service" />
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="#17BDFF"
+            android:text="Start Logging Service"
+            android:textColor="#FBFCFD"
+            android:textSize="14dp"
+            android:textStyle="bold" />
     </RelativeLayout>
-
-    <TextView
-        android:id="@+id/sensorStatus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Logging Sensors"
-        android:gravity="center"/>
 
     <Button
         android:id="@+id/exportCSVbtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="3dp"
+        android:background="#17BDFF"
+        android:bottomLeftRadius="10dp"
+        android:bottomRightRadius="10dp"
         android:text="Export to CSV File"
-        android:layout_gravity="center"/>
+        android:textColor="#FBFCFD"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        android:topLeftRadius="10dp"
+        android:topRightRadius="10dp"/>
 
     <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tabLayout"
-        app:tabGravity="fill"
-        app:tabMode="fixed"
+        android:background="#24292C"
         android:minHeight="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:textColor="#FBFCFD"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:tabGravity="fill"
+        app:tabMode="fixed">
     </android.support.design.widget.TabLayout>
 
     <android.support.v4.view.ViewPager
@@ -60,6 +81,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@android:color/white">
+        android:background="#24292C"
+        android:textColor="#FBFCFD">
     </android.support.v4.view.ViewPager>
 </LinearLayout>
