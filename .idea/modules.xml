@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/JnABatteryOptimiser.iml" filepath="$PROJECT_DIR$/JnABatteryOptimiser.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JnA-battery-optimiser.iml" filepath="$PROJECT_DIR$/JnA-battery-optimiser.iml" />
+      <module fileurl="file://C:\Users\Jeremy\JnA-battery-optimiser\JnABatteryOptimiser.iml" filepath="C:\Users\Jeremy\JnA-battery-optimiser\JnABatteryOptimiser.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
