@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
         isGranted = new RxPermissions(this)
                 .isGranted(Manifest.permission.PACKAGE_USAGE_STATS);
 
-        //if (! isGranted) {
-          //  startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
+       // if (! isGranted) {
+        //    startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
         //}
         Log.d("UsageStatGranted", String.valueOf(isGranted));
 
