@@ -6,6 +6,10 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
+import android.content.Intent;
+import android.provider.Settings;
+import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
@@ -14,14 +18,16 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.View;
+import android.widget.Button;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import jauts.org.jnabatteryoptimiser.AppsFragment;
+import jauts.org.jnabatteryoptimiser.LoggingService;
 import jauts.org.jnabatteryoptimiser.adapters.PagerAdapter;
 import jauts.org.jnabatteryoptimiser.PullSensorsFragment;
 import jauts.org.jnabatteryoptimiser.PushSensorsFragment;
@@ -32,6 +38,7 @@ import jauts.org.jnabatteryoptimiser.tasks.SenseFromAllPushSensorsTask;
 
 public class MainActivity extends AppCompatActivity implements PullSensorsFragment.OnListFragmentInteractionListener, PushSensorsFragment.OnListFragmentInteractionListener, AppsFragment.OnListFragmentInteractionListener {
 
+    private Button mLoggingSwitchBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +74,17 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
             }
         });
 
+        mLoggingSwitchBtn = (Button) findViewById(R.id.loggingServiceSwitch);
+        mLoggingSwitchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent startIntent = new Intent(MainActivity.this, LoggingService.class);
+                startService(startIntent);
+            }
+        });
+
         grantLocation();
+        grantUsageStat();
         collectSensorData();
     }
 
@@ -79,6 +96,20 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
                 });
 
     }
+
+
+    private void grantUsageStat() {
+        Boolean isGranted = false;
+        isGranted = new RxPermissions(this)
+                .isGranted(Manifest.permission.PACKAGE_USAGE_STATS);
+
+       // if (! isGranted) {
+        //    startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
+        //}
+        Log.d("UsageStatGranted", String.valueOf(isGranted));
+
+    }
+
 
     private void collectSensorData() {
         //new CollectSensorDataTask(this).execute();

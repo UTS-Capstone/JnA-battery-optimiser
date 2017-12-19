@@ -11,6 +11,8 @@ import com.ubhave.sensormanager.SensorDataListener;
 import com.ubhave.sensormanager.data.SensorData;
 import com.ubhave.sensormanager.data.push.BatteryData;
 import com.ubhave.sensormanager.data.push.ConnectionStateData;
+import com.ubhave.sensormanager.data.push.ConnectionStrengthData;
+import com.ubhave.sensormanager.data.push.PassiveLocationData;
 import com.ubhave.sensormanager.data.push.ScreenData;
 import com.ubhave.sensormanager.sensors.SensorEnum;
 import com.ubhave.sensormanager.sensors.SensorUtils;
@@ -75,6 +77,26 @@ public class SenseFromAllPushSensorsTask extends SubscribeTask implements Sensor
                     }
                 }
         );
+
+        sensorManager.subscribeToSensorData(SensorUtils.SENSOR_TYPE_CONNECTION_STRENGTH,
+                new SensorDataListener() {
+                    @Override
+                    public void onDataSensed(SensorData sensorData) {
+                        ConnectionStrengthData connStgth = (ConnectionStrengthData) sensorData;
+                        JSONFormatter f = DataFormatter.getJSONFormatter(context, connStgth.getSensorType());
+                        try {
+                            logger.debug(f.toString(connStgth));
+                        } catch (DataHandlerException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onCrossingLowBatteryThreshold(boolean b) {
+
+                    }
+                });
+
         sensorManager.subscribeToSensorData(SensorUtils.SENSOR_TYPE_BATTERY,
                 new SensorDataListener() {
                     @Override
@@ -95,6 +117,25 @@ public class SenseFromAllPushSensorsTask extends SubscribeTask implements Sensor
                     }
                 }
         );
+
+        sensorManager.subscribeToSensorData(SensorUtils.SENSOR_TYPE_PASSIVE_LOCATION,
+                new SensorDataListener() {
+                    @Override
+                    public void onDataSensed(SensorData sensorData) {
+                        PassiveLocationData pLocData = (PassiveLocationData) sensorData;
+                        JSONFormatter f = DataFormatter.getJSONFormatter(context, pLocData.getSensorType());
+                        try {
+                            logger.debug(f.toString(pLocData));
+                        } catch (DataHandlerException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onCrossingLowBatteryThreshold(boolean b) {
+
+                    }
+                });
 
         /*
         for (SensorEnum s : SensorEnum.values())
