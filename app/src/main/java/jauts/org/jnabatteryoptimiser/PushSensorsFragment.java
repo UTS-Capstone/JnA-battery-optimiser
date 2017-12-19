@@ -69,6 +69,7 @@ public class PushSensorsFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             recyclerView.setAdapter(new MyPushSensorsRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            context.setTheme(R.style.SettingsFragmentStyle);
         }
         return view;
     }

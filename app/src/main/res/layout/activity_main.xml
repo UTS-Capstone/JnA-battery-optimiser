@@ -5,8 +5,30 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#24292C"
-    android:orientation="vertical"
-    android:textColor="#FBFCFD">
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#24292C"
+        android:elevation="4dp"
+        android:textAlignment="center"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:titleTextColor="@android:color/white">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="JnA Battery Optimiser"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+        </android.support.v7.widget.Toolbar>
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -22,28 +44,28 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5sp"
+            android:layout_marginTop="5sp"
             android:layout_toLeftOf="@+id/loggingServiceSwitch"
             android:layout_toStartOf="@+id/loggingServiceSwitch"
             android:backgroundTint="#17BDFF"
+            android:onClick="sampleOnceClick"
             android:text="Sample Once"
             android:textColor="#FBFCFD"
-            android:textSize="14dp"
-            android:textStyle="bold"/>
+            android:textSize="14sp"/>
 
         <Button
             android:id="@+id/loggingServiceSwitch"
-            android:layout_width="wrap_content"
+            android:layout_width="200sp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginRight="5sp"
+            android:layout_marginTop="5sp"
             android:backgroundTint="#17BDFF"
+            android:onClick="loggingServiceSwitchClick"
             android:text="Start Logging Service"
             android:textColor="#FBFCFD"
-            android:textSize="14dp"
-            android:textStyle="bold" />
+            android:textSize="14sp" />
     </RelativeLayout>
 
     <Button
@@ -51,18 +73,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="3dp"
-        android:background="#17BDFF"
-        android:bottomLeftRadius="10dp"
-        android:bottomRightRadius="10dp"
+        android:layout_marginLeft="5sp"
+        android:layout_marginRight="5sp"
+        android:layout_marginTop="3sp"
+        android:backgroundTint="#17BDFF"
+        android:onClick="exportCSVClick"
         android:text="Export to CSV File"
         android:textColor="#FBFCFD"
-        android:textSize="14dp"
-        android:textStyle="bold"
-        android:topLeftRadius="10dp"
-        android:topRightRadius="10dp"/>
+        android:textSize="14sp"
+        android:topLeftRadius="10sp"
+        android:topRightRadius="10sp"/>
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
@@ -80,8 +100,6 @@
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="#24292C"
-        android:textColor="#FBFCFD">
+        android:layout_weight="1">
     </android.support.v4.view.ViewPager>
 </LinearLayout>
