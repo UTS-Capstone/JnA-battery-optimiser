@@ -8,13 +8,13 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
 import android.content.Intent;
-<<<<<<< HEAD
+
 import android.net.Uri;
-=======
+
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 
->>>>>>> develop
+
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
@@ -30,6 +30,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +43,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 import java.io.File;
 
 import jauts.org.jnabatteryoptimiser.AppsFragment;
+import jauts.org.jnabatteryoptimiser.LoggingService;
 import jauts.org.jnabatteryoptimiser.adapters.PagerAdapter;
 import jauts.org.jnabatteryoptimiser.PullSensorsFragment;
 import jauts.org.jnabatteryoptimiser.PushSensorsFragment;
@@ -52,11 +54,10 @@ import jauts.org.jnabatteryoptimiser.tasks.SenseFromAllPushSensorsTask;
 
 public class MainActivity extends AppCompatActivity implements PullSensorsFragment.OnListFragmentInteractionListener, PushSensorsFragment.OnListFragmentInteractionListener, AppsFragment.OnListFragmentInteractionListener {
 
-<<<<<<< HEAD
+
     private Button mLoggingSwitchBtn;
     private Button mExportLogBtn;
-=======
->>>>>>> develop
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
             }
         });
 
-<<<<<<< HEAD
+
         mLoggingSwitchBtn = (Button) findViewById(R.id.loggingServiceSwitch);
         mLoggingSwitchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,8 +116,6 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
             }
         });
 
-=======
->>>>>>> develop
         grantLocation();
         collectSensorData();
     }
