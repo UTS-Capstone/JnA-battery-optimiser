@@ -2,6 +2,7 @@ package jauts.org.jnabatteryoptimiser.views;
 
 import android.Manifest;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.support.design.widget.TabLayout;
@@ -11,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
+
+import java.io.File;
 
 import jauts.org.jnabatteryoptimiser.AppsFragment;
 import jauts.org.jnabatteryoptimiser.LoggingService;
@@ -25,6 +28,7 @@ import jauts.org.jnabatteryoptimiser.tasks.SenseFromAllPushSensorsTask;
 public class MainActivity extends AppCompatActivity implements PullSensorsFragment.OnListFragmentInteractionListener, PushSensorsFragment.OnListFragmentInteractionListener, AppsFragment.OnListFragmentInteractionListener {
 
     private Button mLoggingSwitchBtn;
+    private Button mExportLogBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +70,19 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
             public void onClick(View view) {
                 Intent startIntent = new Intent(MainActivity.this, LoggingService.class);
                 startService(startIntent);
+            }
+        });
+
+        mExportLogBtn = (Button) findViewById(R.id.exportCSVbtn);
+        mExportLogBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                File file = getFilesDir();
+                Uri uri = Uri.fromFile(file);
+
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(uri);
+                startActivity(intent);
             }
         });
 
