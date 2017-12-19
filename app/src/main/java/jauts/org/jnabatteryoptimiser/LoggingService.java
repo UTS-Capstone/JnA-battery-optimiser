@@ -1,25 +1,42 @@
 package jauts.org.jnabatteryoptimiser;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
+import android.widget.Toast;
 
 import jauts.org.jnabatteryoptimiser.tasks.SenseFromAllEnvSensorsTask;
 import jauts.org.jnabatteryoptimiser.tasks.SenseFromAllPullSensorsTask;
 import jauts.org.jnabatteryoptimiser.tasks.SenseFromAllPushSensorsTask;
-import jauts.org.jnabatteryoptimiser.tasks.WekaMlTask;
 
-public class MainActivity extends AppCompatActivity {
+public class LoggingService extends Service {
+    public LoggingService() {
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public void onCreate() {
+        super.onCreate();
+        Toast.makeText(this, "Logging service started", Toast.LENGTH_LONG).show();
+    }
 
-        // test weka lib
-        // new WekaMlTask(this).execute();
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
 
         // test sensor manager
         startPull();
+
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        // TODO: Return the communication channel to the service.
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 
     public void startPull() {

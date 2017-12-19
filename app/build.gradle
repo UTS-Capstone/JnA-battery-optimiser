@@ -1,5 +1,18 @@
 apply plugin: 'com.android.application'
 
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "gradle.plugin.me.tatarka:gradle-retrolambda:3.7.0"
+    }
+}
+
+apply plugin: 'me.tatarka.retrolambda'
+
 android {
     compileSdkVersion 25
     buildToolsVersion '26.0.2'
@@ -17,17 +30,33 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 dependencies {
+    implementation 'com.android.support:recyclerview-v7:25.4.0'
+    implementation 'com.android.support:support-v4:25.4.0'
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:appcompat-v7:25.4.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    compile 'io.reactivex.rxjava2:rxjava:2.0.0'
+    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
+
+    compile 'org.slf4j:slf4j-api:1.7.21'
+    compile 'com.github.tony19:logback-android-core:1.1.1-6'
+    compile 'com.github.tony19:logback-android-classic:1.1.1-6'
+
     testCompile 'junit:junit:4.12'
+
     compile files('libs/sensordatamanager.jar')
-    compile files('libs/sensormanager.jar')
-    compile files('libs/wekaSTRIPPED.jar')
+    implementation files('libs/sensormanager.jar')
+    compileOnly files('libs/wekaSTRIPPED.jar')
+    compile 'com.android.support:design:25.4.0'
 }
