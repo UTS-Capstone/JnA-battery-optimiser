@@ -19,23 +19,31 @@ import com.ubhave.sensormanager.data.pull.CallContentListData;
 import com.ubhave.sensormanager.data.pull.LocationData;
 import com.ubhave.sensormanager.data.pull.WifiData;
 import com.ubhave.sensormanager.sensors.SensorEnum;
+import com.ubhave.sensormanager.sensors.SensorInterface;
 import com.ubhave.sensormanager.sensors.SensorUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import com.ubhave.sensormanager.tasks.Subscription;
+import com.ubhave.sensormanager.tasks.SubscriptionList;
+
 public class SenseFromAllPullSensorsTask extends AsyncTask<Void, Void, Void> {
-    private final Logger logger = LoggerFactory.getLogger(SenseFromAllPullSensorsTask.class);
     private final static String LOG_TAG = "SensePull";
+    private final Logger logger = LoggerFactory.getLogger(SenseFromAllPullSensorsTask.class);
+    private final SubscriptionList subscriptionList;
     private ESSensorManager sensorManager;
     private Context context;
 
     public SenseFromAllPullSensorsTask(final Context context) {
         this.context = context;
+        subscriptionList = new SubscriptionList();
+        ArrayList<SensorInterface> sensors = SensorUtils.getAllSensors(context);
 
         try {
             sensorManager = ESSensorManager.getSensorManager(context);

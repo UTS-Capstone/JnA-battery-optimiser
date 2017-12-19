@@ -2,20 +2,16 @@ package jauts.org.jnabatteryoptimiser.views;
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -88,11 +84,13 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
 
     public void sampleOnceClick(View view)
     {
+        //TODO add sample functionality
         toastMsg("Sample taken");
     }
 
     public void exportCSVClick(View view)
     {
+        //TODO add export to CSV file functionality
         toastMsg("Data exported");
     }
 
@@ -100,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void loggingServiceSwitchClick(View view)
     {
+        //TODO add start and stop functionality & (lower priority) add logging intervals
         TextView loggingServiceSwitchText = (TextView) findViewById(R.id.loggingServiceSwitch);
         if(loggingServiceSwitchText.getText() == "Start Logging Service") {
             loggingServiceSwitchText.setText("Stop Logging Service");
@@ -122,7 +121,6 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
         TextView toastMessage = (TextView) toastView.findViewById(android.R.id.message);
         toastMessage.setTextColor(Color.WHITE);
         toastMessage.setBackgroundColor(Color.TRANSPARENT);
-        toastMessage.setShadowLayer(0, 0, 0, Color.TRANSPARENT);
         toast.show();
     }
     @Override
