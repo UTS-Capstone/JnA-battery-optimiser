@@ -112,36 +112,7 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
         toastMsg("Data exported");
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void loggingServiceSwitchClick(View view)
-    {
-        //TODO add start and stop functionality & (lower priority) add logging intervals
-        TextView loggingServiceSwitchText = (TextView) findViewById(R.id.loggingServiceSwitch);
-        if(loggingServiceSwitchText.getText() == "Start Logging Service") {
-            loggingServiceSwitchText.setText("Stop Logging Service");
-            loggingServiceSwitchText.setBackgroundTintList(ColorStateList.valueOf(0xffff0038));
-        }
-        else
-        {
-            loggingServiceSwitchText.setText("Start Logging Service");
-            loggingServiceSwitchText.setBackgroundTintList(ColorStateList.valueOf(0xff17BDFF));
-        }
-    }
 
-
-    public void toastMsg(String msg) {
-
-
-    public void sampleOnceClick(View view)
-    {
-        toastMsg("Sample taken");
-    }
-
-    public void exportCSVClick(View view)
-    {
-        toastMsg("Data exported");
-    }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
