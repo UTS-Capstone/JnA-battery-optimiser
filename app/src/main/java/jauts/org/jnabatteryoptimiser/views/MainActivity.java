@@ -41,6 +41,7 @@ import jauts.org.jnabatteryoptimiser.PullSensorsFragment;
 import jauts.org.jnabatteryoptimiser.PushSensorsFragment;
 import jauts.org.jnabatteryoptimiser.R;
 import jauts.org.jnabatteryoptimiser.dummy.DummyContent;
+import jauts.org.jnabatteryoptimiser.dummy.SensorContent;
 import jauts.org.jnabatteryoptimiser.tasks.SenseFromAllPullSensorsTask;
 import jauts.org.jnabatteryoptimiser.tasks.SenseFromAllPushSensorsTask;
 
@@ -80,7 +81,6 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
 
             }
         });
-
         grantLocation();
         collectSensorData();
     }
@@ -129,40 +129,7 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
         }
     }
 
-
     public void toastMsg(String msg) {
-
-
-    public void sampleOnceClick(View view)
-    {
-        toastMsg("Sample taken");
-    }
-
-    public void exportCSVClick(View view)
-    {
-        toastMsg("Data exported");
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void loggingServiceSwitchClick(View view)
-    {
-        TextView loggingServiceSwitchText = (TextView) findViewById(R.id.loggingServiceSwitch);
-        if(loggingServiceSwitchText.getText() == "Start Logging Service") {
-            loggingServiceSwitchText.setText("Stop Logging Service");
-            loggingServiceSwitchText.setBackgroundTintList(ColorStateList.valueOf(0xffff0038));
-        }
-        else
-        {
-            loggingServiceSwitchText.setText("Start Logging Service");
-            loggingServiceSwitchText.setBackgroundTintList(ColorStateList.valueOf(0xff17BDFF));
-        }
-    }
-
-
-    public void toastMsg(String msg) {
-
-
         Toast toast = Toast.makeText(this, msg, Toast.LENGTH_SHORT);
         View toastView = toast.getView(); // This'll return the default View of the Toast.
 
@@ -176,6 +143,6 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
         toast.show();
     }
     @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+    public void onListFragmentInteraction(SensorContent.SensorItem item) {
     }
 }

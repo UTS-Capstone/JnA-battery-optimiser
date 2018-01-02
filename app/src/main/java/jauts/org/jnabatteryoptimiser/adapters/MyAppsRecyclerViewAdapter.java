@@ -8,7 +8,8 @@ import android.widget.TextView;
 
 import jauts.org.jnabatteryoptimiser.AppsFragment.OnListFragmentInteractionListener;
 import jauts.org.jnabatteryoptimiser.R;
-import jauts.org.jnabatteryoptimiser.dummy.DummyContent.DummyItem;
+import jauts.org.jnabatteryoptimiser.dummy.SensorContent;
+import jauts.org.jnabatteryoptimiser.dummy.SensorContent.SensorItem;
 
 import java.util.List;
 
@@ -19,10 +20,10 @@ import java.util.List;
  */
 public class MyAppsRecyclerViewAdapter extends RecyclerView.Adapter<MyAppsRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<SensorItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyAppsRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public MyAppsRecyclerViewAdapter(List<SensorItem> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -61,7 +62,7 @@ public class MyAppsRecyclerViewAdapter extends RecyclerView.Adapter<MyAppsRecycl
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
+        public SensorItem mItem;
 
         public ViewHolder(View view) {
             super(view);

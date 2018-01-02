@@ -11,8 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import jauts.org.jnabatteryoptimiser.adapters.MyPullSensorsRecyclerViewAdapter;
-import jauts.org.jnabatteryoptimiser.dummy.DummyContent;
-import jauts.org.jnabatteryoptimiser.dummy.DummyContent.DummyItem;
+import jauts.org.jnabatteryoptimiser.dummy.SensorContent;
+import jauts.org.jnabatteryoptimiser.dummy.SensorContent.SensorItem;
 
 /**
  * A fragment representing a list of Items.
@@ -69,7 +69,7 @@ public class PullSensorsFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyPullSensorsRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new MyPullSensorsRecyclerViewAdapter(SensorContent.getPullSensors(), mListener));
             context.setTheme(R.style.SettingsFragmentStyle);
         }
         return view;
@@ -105,6 +105,6 @@ public class PullSensorsFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(SensorItem item);
     }
 }
