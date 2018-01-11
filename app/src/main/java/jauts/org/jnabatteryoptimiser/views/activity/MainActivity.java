@@ -138,15 +138,16 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
         if(loggingServiceSwitchText.getText().equals("Start Logging Service")) {
             loggingServiceSwitchText.setText("Stop Logging Service");
             loggingServiceSwitchText.setBackgroundTintList(ColorStateList.valueOf(0xffff0038));
+
+            // start background logging
+            Intent startIntent = new Intent(MainActivity.this, LoggingService.class);
+            startService(startIntent);
         }
         else
         {
             loggingServiceSwitchText.setText("Start Logging Service");
             loggingServiceSwitchText.setBackgroundTintList(ColorStateList.valueOf(0xff17BDFF));
 
-            // start background logging
-            Intent startIntent = new Intent(MainActivity.this, LoggingService.class);
-            startService(startIntent);
         }
 
     }
