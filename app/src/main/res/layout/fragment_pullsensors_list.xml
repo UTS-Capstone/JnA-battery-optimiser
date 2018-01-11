@@ -9,5 +9,5 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="jauts.org.jnabatteryoptimiser.PullSensorsFragment"
+    tools:context="jauts.org.jnabatteryoptimiser.views.fragment.PullSensorsFragment"
     tools:listitem="@layout/fragment_pullsensors" />

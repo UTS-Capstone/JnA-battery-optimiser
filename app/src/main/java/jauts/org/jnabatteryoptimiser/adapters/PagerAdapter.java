@@ -1,13 +1,12 @@
 package jauts.org.jnabatteryoptimiser.adapters;
 
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import jauts.org.jnabatteryoptimiser.AppsFragment;
-import jauts.org.jnabatteryoptimiser.PullSensorsFragment;
-import jauts.org.jnabatteryoptimiser.PushSensorsFragment;
+import jauts.org.jnabatteryoptimiser.views.fragment.AppsFragment;
+import jauts.org.jnabatteryoptimiser.views.fragment.PullSensorsFragment;
+import jauts.org.jnabatteryoptimiser.views.fragment.PushSensorsFragment;
 
 /**
  * Created by Jeremy on 2/12/2017.
