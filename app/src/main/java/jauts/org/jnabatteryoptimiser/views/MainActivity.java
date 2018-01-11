@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
 
         //TODO add start and stop functionality & (lower priority) add logging intervals
         TextView loggingServiceSwitchText = (TextView) findViewById(R.id.loggingServiceSwitch);
-        if(loggingServiceSwitchText.getText() == "Start Logging Service") {
+        if(loggingServiceSwitchText.getText().equals("Start Logging Service")) {
             loggingServiceSwitchText.setText("Stop Logging Service");
             loggingServiceSwitchText.setBackgroundTintList(ColorStateList.valueOf(0xffff0038));
         }
