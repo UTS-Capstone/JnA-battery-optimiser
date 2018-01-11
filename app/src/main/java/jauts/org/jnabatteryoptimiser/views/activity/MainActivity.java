@@ -1,46 +1,30 @@
-package jauts.org.jnabatteryoptimiser.views;
+package jauts.org.jnabatteryoptimiser.views.activity;
 
 import android.Manifest;
 import android.annotation.TargetApi;
 
-import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
-import android.content.Intent;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 
-import android.os.Bundle;
-import android.support.annotation.RequiresApi;
-import android.support.v4.content.ContextCompat;
-
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 
 import android.util.Log;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
-import jauts.org.jnabatteryoptimiser.AppsFragment;
+import jauts.org.jnabatteryoptimiser.views.fragment.AppsFragment;
 import jauts.org.jnabatteryoptimiser.adapters.PagerAdapter;
-import jauts.org.jnabatteryoptimiser.PullSensorsFragment;
-import jauts.org.jnabatteryoptimiser.PushSensorsFragment;
+import jauts.org.jnabatteryoptimiser.views.fragment.PullSensorsFragment;
+import jauts.org.jnabatteryoptimiser.views.fragment.PushSensorsFragment;
 import jauts.org.jnabatteryoptimiser.R;
-import jauts.org.jnabatteryoptimiser.dummy.DummyContent;
 import jauts.org.jnabatteryoptimiser.dummy.SensorContent;
 import jauts.org.jnabatteryoptimiser.tasks.SenseFromAllPullSensorsTask;
 import jauts.org.jnabatteryoptimiser.tasks.SenseFromAllPushSensorsTask;
@@ -120,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
 
         //TODO add start and stop functionality & (lower priority) add logging intervals
         TextView loggingServiceSwitchText = (TextView) findViewById(R.id.loggingServiceSwitch);
-        if(loggingServiceSwitchText.getText() == "Start Logging Service") {
+        if(loggingServiceSwitchText.getText().equals("Start Logging Service")) {
             loggingServiceSwitchText.setText("Stop Logging Service");
             loggingServiceSwitchText.setBackgroundTintList(ColorStateList.valueOf(0xffff0038));
         }

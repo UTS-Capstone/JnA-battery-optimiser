@@ -9,5 +9,5 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="jauts.org.jnabatteryoptimiser.AppsFragment"
+    tools:context="jauts.org.jnabatteryoptimiser.views.fragment.AppsFragment"
     tools:listitem="@layout/fragment_apps" />
