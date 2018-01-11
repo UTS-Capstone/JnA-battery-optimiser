@@ -11,8 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import jauts.org.jnabatteryoptimiser.adapters.MyAppsRecyclerViewAdapter;
-import jauts.org.jnabatteryoptimiser.dummy.DummyContent;
-import jauts.org.jnabatteryoptimiser.dummy.DummyContent.DummyItem;
+import jauts.org.jnabatteryoptimiser.dummy.SensorContent;
 
 /**
  * A fragment representing a list of Items.
@@ -67,7 +66,7 @@ public class AppsFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyAppsRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new MyAppsRecyclerViewAdapter(SensorContent.getRunningApps(), mListener));
             context.setTheme(R.style.SettingsFragmentStyle);
         }
         return view;
@@ -93,6 +92,6 @@ public class AppsFragment extends Fragment {
 
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(SensorContent.SensorItem item);
     }
 }
