@@ -1,4 +1,4 @@
-package jauts.org.jnabatteryoptimiser;
+package jauts.org.jnabatteryoptimiser.views.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,7 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import jauts.org.jnabatteryoptimiser.adapters.MyPullSensorsRecyclerViewAdapter;
+import jauts.org.jnabatteryoptimiser.R;
+import jauts.org.jnabatteryoptimiser.adapters.MyPushSensorsRecyclerViewAdapter;
 import jauts.org.jnabatteryoptimiser.dummy.SensorContent;
 import jauts.org.jnabatteryoptimiser.dummy.SensorContent.SensorItem;
 
@@ -20,7 +21,7 @@ import jauts.org.jnabatteryoptimiser.dummy.SensorContent.SensorItem;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class PullSensorsFragment extends Fragment {
+public class PushSensorsFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -32,13 +33,13 @@ public class PullSensorsFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public PullSensorsFragment() {
+    public PushSensorsFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static PullSensorsFragment newInstance(int columnCount) {
-        PullSensorsFragment fragment = new PullSensorsFragment();
+    public static PushSensorsFragment newInstance(int columnCount) {
+        PushSensorsFragment fragment = new PushSensorsFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -57,19 +58,18 @@ public class PullSensorsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_pullsensors_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_pushsensors_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyPullSensorsRecyclerViewAdapter(SensorContent.getPullSensors(), mListener));
+            recyclerView.setAdapter(new MyPushSensorsRecyclerViewAdapter(SensorContent.getPushSensors(), mListener));
             context.setTheme(R.style.SettingsFragmentStyle);
         }
         return view;

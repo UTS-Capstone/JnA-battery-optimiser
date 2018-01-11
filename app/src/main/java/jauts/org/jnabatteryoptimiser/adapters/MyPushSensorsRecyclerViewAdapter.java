@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import jauts.org.jnabatteryoptimiser.PushSensorsFragment.OnListFragmentInteractionListener;
+import jauts.org.jnabatteryoptimiser.views.fragment.PushSensorsFragment.OnListFragmentInteractionListener;
 import jauts.org.jnabatteryoptimiser.R;
 import jauts.org.jnabatteryoptimiser.dummy.SensorContent.SensorItem;
 
