@@ -112,10 +112,12 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
         toastMsg("Data exported");
     }
 
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void loggingServiceSwitchClick(View view)
     {
+
         //TODO add start and stop functionality & (lower priority) add logging intervals
         TextView loggingServiceSwitchText = (TextView) findViewById(R.id.loggingServiceSwitch);
         if(loggingServiceSwitchText.getText() == "Start Logging Service") {
