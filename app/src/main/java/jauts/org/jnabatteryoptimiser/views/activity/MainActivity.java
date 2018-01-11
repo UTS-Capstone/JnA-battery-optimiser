@@ -6,14 +6,13 @@ import android.annotation.TargetApi;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
-<<<<<<< HEAD:app/src/main/java/jauts/org/jnabatteryoptimiser/views/MainActivity.java
 import android.content.Intent;
 
 import android.net.Uri;
 
 import android.provider.Settings;
-=======
->>>>>>> develop:app/src/main/java/jauts/org/jnabatteryoptimiser/views/activity/MainActivity.java
+
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 
 
@@ -23,27 +22,20 @@ import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-<<<<<<< HEAD:app/src/main/java/jauts/org/jnabatteryoptimiser/views/MainActivity.java
-import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
+
 import android.widget.Button;
-import android.widget.EditText;
-=======
->>>>>>> develop:app/src/main/java/jauts/org/jnabatteryoptimiser/views/activity/MainActivity.java
+
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
-<<<<<<< HEAD:app/src/main/java/jauts/org/jnabatteryoptimiser/views/MainActivity.java
 import java.io.File;
 
-import jauts.org.jnabatteryoptimiser.AppsFragment;
 import jauts.org.jnabatteryoptimiser.LoggingService;
-=======
 import jauts.org.jnabatteryoptimiser.views.fragment.AppsFragment;
->>>>>>> develop:app/src/main/java/jauts/org/jnabatteryoptimiser/views/activity/MainActivity.java
+
 import jauts.org.jnabatteryoptimiser.adapters.PagerAdapter;
 import jauts.org.jnabatteryoptimiser.views.fragment.PullSensorsFragment;
 import jauts.org.jnabatteryoptimiser.views.fragment.PushSensorsFragment;
@@ -54,10 +46,7 @@ import jauts.org.jnabatteryoptimiser.tasks.SenseFromAllPushSensorsTask;
 
 public class MainActivity extends AppCompatActivity implements PullSensorsFragment.OnListFragmentInteractionListener, PushSensorsFragment.OnListFragmentInteractionListener, AppsFragment.OnListFragmentInteractionListener {
 
-
-    private Button mLoggingSwitchBtn;
     private Button mExportLogBtn;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,33 +81,7 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
 
             }
         });
-<<<<<<< HEAD:app/src/main/java/jauts/org/jnabatteryoptimiser/views/MainActivity.java
 
-
-        mLoggingSwitchBtn = (Button) findViewById(R.id.loggingServiceSwitch);
-        mLoggingSwitchBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent startIntent = new Intent(MainActivity.this, LoggingService.class);
-                startService(startIntent);
-            }
-        });
-
-        mExportLogBtn = (Button) findViewById(R.id.exportCSVbtn);
-        mExportLogBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                File file = getFilesDir();
-                Uri uri = Uri.fromFile(file);
-
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(uri);
-                startActivity(intent);
-            }
-        });
-
-=======
->>>>>>> develop:app/src/main/java/jauts/org/jnabatteryoptimiser/views/activity/MainActivity.java
         grantLocation();
         collectSensorData();
     }
@@ -146,6 +109,20 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
 
     public void exportCSVClick(View view)
     {
+        //File file = getFilesDir();
+        //Uri uri = Uri.fromFile(file);
+        File file = new File(getFilesDir(), "logFile.log");
+        if (file == null) {
+            toastMsg("Log file not yet created");
+            return;
+        }
+        Uri uri = FileProvider.getUriForFile(MainActivity.this, "jauts.org.jnabatteryoptimiser.provider", file);
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(uri, "text/plain");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivity(intent);
+
         //TODO add export to CSV file functionality
         toastMsg("Data exported");
     }
@@ -166,7 +143,12 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
         {
             loggingServiceSwitchText.setText("Start Logging Service");
             loggingServiceSwitchText.setBackgroundTintList(ColorStateList.valueOf(0xff17BDFF));
+
+            // start background logging
+            Intent startIntent = new Intent(MainActivity.this, LoggingService.class);
+            startService(startIntent);
         }
+
     }
 
     public void toastMsg(String msg) {
