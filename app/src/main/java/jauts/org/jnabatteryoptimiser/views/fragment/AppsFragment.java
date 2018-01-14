@@ -1,6 +1,7 @@
 package jauts.org.jnabatteryoptimiser.views.fragment;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -9,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.io.IOException;
 
 import jauts.org.jnabatteryoptimiser.R;
 import jauts.org.jnabatteryoptimiser.adapters.MyAppsRecyclerViewAdapter;
@@ -67,12 +70,18 @@ public class AppsFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyAppsRecyclerViewAdapter(SensorContent.getRunningApps(), mListener));
+            try {
+                SensorContent.APP_ITEMS.clear();
+                recyclerView.setAdapter(new MyAppsRecyclerViewAdapter(SensorContent.getRunningApps(context), mListener));
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             context.setTheme(R.style.SettingsFragmentStyle);
         }
         return view;
     }
-
 
     @Override
     public void onAttach(Context context) {

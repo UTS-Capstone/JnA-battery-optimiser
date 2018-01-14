@@ -33,6 +33,8 @@ import java.util.List;
 import com.ubhave.sensormanager.tasks.Subscription;
 import com.ubhave.sensormanager.tasks.SubscriptionList;
 
+import jauts.org.jnabatteryoptimiser.dummy.SensorContent;
+
 public class SenseFromAllPullSensorsTask extends AsyncTask<Void, Void, Void> {
     private final static String LOG_TAG = "SensePull";
     private final Logger logger = LoggerFactory.getLogger(SenseFromAllPullSensorsTask.class);
@@ -70,7 +72,7 @@ public class SenseFromAllPullSensorsTask extends AsyncTask<Void, Void, Void> {
 
         // application
         //ApplicationData appData = sensorManager.getDataFromSensor(SensorUtils.SENSOR_TYPE_)
-        getLatestRunApp();
+        //getLatestRunApp();
 
         // call log
         CallContentListData callData = null;
@@ -96,9 +98,7 @@ public class SenseFromAllPullSensorsTask extends AsyncTask<Void, Void, Void> {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             usageStatsList = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, calendar.getTimeInMillis(), System.currentTimeMillis());
             for (UsageStats us : usageStatsList) {
-                Date date = new Date(us.getLastTimeUsed());
-                String lastTimeUsed = date.toString();
-                logger.debug("APPUSAGE： " + us.getPackageName() + "|" + lastTimeUsed + "|" + us.getTotalTimeInForeground());
+                SensorContent.APP_ITEMS.add(new SensorContent.SensorItem(us.getPackageName(), null,null));
             }
         }
         return "";

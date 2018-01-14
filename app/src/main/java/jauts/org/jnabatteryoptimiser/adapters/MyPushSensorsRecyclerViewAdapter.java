@@ -12,11 +12,6 @@ import jauts.org.jnabatteryoptimiser.dummy.SensorContent.SensorItem;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
 public class MyPushSensorsRecyclerViewAdapter extends RecyclerView.Adapter<MyPushSensorsRecyclerViewAdapter.ViewHolder> {
 
     private final List<SensorItem> mValues;
