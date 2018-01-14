@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import jauts.org.jnabatteryoptimiser.Utility;
 import jauts.org.jnabatteryoptimiser.views.fragment.PullSensorsFragment.OnListFragmentInteractionListener;
 import jauts.org.jnabatteryoptimiser.R;
 import jauts.org.jnabatteryoptimiser.dummy.SensorContent.SensorItem;
@@ -33,7 +34,7 @@ public class MyPullSensorsRecyclerViewAdapter extends RecyclerView.Adapter<MyPul
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mContentView.setText(Utility.shortify(mValues.get(position).content));
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
