@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import jauts.org.jnabatteryoptimiser.R;
 import jauts.org.jnabatteryoptimiser.adapters.MyPullSensorsRecyclerViewAdapter;
 import jauts.org.jnabatteryoptimiser.dummy.SensorContent;
@@ -28,6 +30,9 @@ public class PullSensorsFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+
+    private MyPullSensorsRecyclerViewAdapter mAdapter;
+    private List<SensorItem> mDataSet;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -53,6 +58,9 @@ public class PullSensorsFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+
+        mDataSet = SensorContent.getPullSensors();
+        mAdapter = new MyPullSensorsRecyclerViewAdapter(mDataSet, mListener);
     }
 
     @Override
@@ -70,10 +78,20 @@ public class PullSensorsFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyPullSensorsRecyclerViewAdapter(SensorContent.getPullSensors(), mListener));
+            recyclerView.setAdapter(mAdapter);
             context.setTheme(R.style.SettingsFragmentStyle);
         }
         return view;
+    }
+
+    public void updatePullSensorsList(List<SensorItem> pullSensors) {
+
+        mDataSet = pullSensors;
+
+        if (mAdapter != null) {
+            mAdapter.updateDataset(mDataSet);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
 

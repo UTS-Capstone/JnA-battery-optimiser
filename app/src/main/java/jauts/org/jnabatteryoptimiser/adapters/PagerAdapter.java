@@ -17,6 +17,10 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     int mNoOfTabs;
     private String tabTitles[] = new String[]{"Pull Sensors", "Push Sensors", "Running Apps"};
 
+    private PullSensorsFragment tab1;
+    private PushSensorsFragment tab2;
+    private AppsFragment tab3;
+
     public PagerAdapter(FragmentManager fm, int NumberOfTabs)
     {
         super(fm);
@@ -28,14 +32,11 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         switch(position)
         {
             case 0:
-                PullSensorsFragment tab1 = new PullSensorsFragment();
-                return tab1;
+                return tab1 = (tab1 == null) ? new PullSensorsFragment() : tab1;
             case 1:
-                PushSensorsFragment tab2 = new PushSensorsFragment();
-                return tab2;
+                return tab2 = (tab2 == null) ? new PushSensorsFragment() : tab2;
             case 2:
-                AppsFragment tab3 = new AppsFragment();
-                return tab3;
+                return tab3 = (tab3 == null) ? new AppsFragment() : tab3;
             default:
                 return null;
         }

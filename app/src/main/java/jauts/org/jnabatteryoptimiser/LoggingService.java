@@ -22,8 +22,8 @@ public class LoggingService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        // test sensor manager
-        startPull();
+        // non-blocking call
+        collectSensorData();
 
         return super.onStartCommand(intent, flags, startId);
     }
@@ -39,34 +39,9 @@ public class LoggingService extends Service {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    public void startPull() {
-        new SenseFromAllPullSensorsTask(this)
-        {
-            @Override
-            protected void onPostExecute(Void result)
-            {
-                super.onPostExecute(result);
-                //startEnvironment();
-                startPush();
-            }
-        }.execute();
-    }
-
-    private void startEnvironment()
-    {
-        new SenseFromAllEnvSensorsTask(this)
-        {
-            @Override
-            protected void onPostExecute(Void result)
-            {
-                super.onPostExecute(result);
-                startPush();
-            }
-        }.execute();
-    }
-
-    private void startPush()
-    {
+    private void collectSensorData() {
         new SenseFromAllPushSensorsTask(this).execute();
+        new SenseFromAllPullSensorsTask(this).execute();
     }
+
 }

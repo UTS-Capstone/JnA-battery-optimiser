@@ -3,6 +3,7 @@ package jauts.org.jnabatteryoptimiser.views.activity;
 import android.Manifest;
 import android.annotation.TargetApi;
 
+import android.support.v4.app.Fragment;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
@@ -34,6 +35,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 import java.io.File;
 
 import jauts.org.jnabatteryoptimiser.LoggingService;
+import jauts.org.jnabatteryoptimiser.tasks.SampleOnceTask;
 import jauts.org.jnabatteryoptimiser.views.fragment.AppsFragment;
 
 import jauts.org.jnabatteryoptimiser.adapters.PagerAdapter;
@@ -47,6 +49,7 @@ import jauts.org.jnabatteryoptimiser.tasks.SenseFromAllPushSensorsTask;
 public class MainActivity extends AppCompatActivity implements PullSensorsFragment.OnListFragmentInteractionListener, PushSensorsFragment.OnListFragmentInteractionListener, AppsFragment.OnListFragmentInteractionListener {
 
     private Button mExportLogBtn;
+    private PagerAdapter mPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +63,9 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        mPagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         tabLayout.setupWithViewPager(viewPager);
-        viewPager.setAdapter(adapter);
+        viewPager.setAdapter(mPagerAdapter);
         viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -83,7 +86,12 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
         });
 
         grantLocation();
-        collectSensorData();
+        //collectSensorData();
+    }
+
+
+    public Fragment getAttachedFragment(int id) {
+        return mPagerAdapter.getItem(id);
     }
 
     private void grantLocation() {
@@ -104,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
     public void sampleOnceClick(View view)
     {
         //TODO add sample functionality
+        new SampleOnceTask(this).execute();
         toastMsg("Sample taken");
     }
 
@@ -168,4 +177,5 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
     @Override
     public void onListFragmentInteraction(SensorContent.SensorItem item) {
     }
+
 }

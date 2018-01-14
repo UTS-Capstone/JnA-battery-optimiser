@@ -166,7 +166,7 @@ public class SensorContent {
 
         public SensorItem(String id, String content, String details) {
             this.id = id;
-            this.content = "value";
+            this.content = content;
             this.details = "";
         }
 
