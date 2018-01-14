@@ -14,7 +14,7 @@ import java.util.List;
 
 public class MyPullSensorsRecyclerViewAdapter extends RecyclerView.Adapter<MyPullSensorsRecyclerViewAdapter.ViewHolder> {
 
-    private final List<SensorItem> mValues;
+    private List<SensorItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
     public MyPullSensorsRecyclerViewAdapter(List<SensorItem> items, OnListFragmentInteractionListener listener) {
@@ -50,6 +50,10 @@ public class MyPullSensorsRecyclerViewAdapter extends RecyclerView.Adapter<MyPul
     @Override
     public int getItemCount() {
         return mValues.size();
+    }
+
+    public void updateDataset(List<SensorItem> oldDataSet) {
+        mValues = oldDataSet;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
