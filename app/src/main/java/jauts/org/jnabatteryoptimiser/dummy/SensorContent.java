@@ -116,9 +116,7 @@ public class SensorContent {
 
         for (int i = 0; i < runningAppProcessInfo.size(); i++) {
             APP_ITEMS.add(new SensorItem(getApplicationLabel(context, runningAppProcessInfo.get(i).processName), null, null));
-        }
-
-*/
+        } */
         return APP_ITEMS;
 
     }

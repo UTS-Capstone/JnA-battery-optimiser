@@ -108,6 +108,11 @@ public class AppsFragment extends Fragment {
         }
     }
 
+    public void update()
+    {
+        getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+    }
+
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
         void onListFragmentInteraction(SensorContent.SensorItem item);

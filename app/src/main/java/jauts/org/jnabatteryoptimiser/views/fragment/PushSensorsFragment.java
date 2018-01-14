@@ -94,6 +94,10 @@ public class PushSensorsFragment extends Fragment {
     }
 
 
+    public void update()
+    {
+        getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+    }
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);

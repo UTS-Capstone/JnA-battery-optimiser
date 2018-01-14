@@ -42,6 +42,20 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         }
     }
 
+    public void updateItem(int position)
+    {
+        switch(position)
+        {
+            case 0:
+                tab1.update();
+            case 1:
+                tab2.update();
+            case 2:
+                tab3.update();
+            default:
+        }
+    }
+
     @Override
     public CharSequence getPageTitle(int position) {
         // Generate title based on item position
