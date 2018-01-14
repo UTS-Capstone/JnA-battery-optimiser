@@ -174,8 +174,10 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
 
         toast.show();
     }
+
+
+
     @Override
     public void onListFragmentInteraction(SensorContent.SensorItem item) {
     }
-
 }
