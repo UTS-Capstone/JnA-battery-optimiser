@@ -164,6 +164,9 @@ public class SensorContent {
 
         public SensorItem(String id, String content, String details) {
             this.id = id;
+            if (content == null || content.length() == 0) {
+                content = "none";
+            }
             this.content = content;
             this.details = "";
         }
