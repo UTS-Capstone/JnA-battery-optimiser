@@ -3,6 +3,7 @@ package jauts.org.jnabatteryoptimiser.views.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -54,11 +55,9 @@ public class PullSensorsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
-
         mDataSet = SensorContent.getPullSensors();
         mAdapter = new MyPullSensorsRecyclerViewAdapter(mDataSet, mListener);
     }
@@ -112,6 +111,18 @@ public class PullSensorsFragment extends Fragment {
         mListener = null;
     }
 
+    public void update()
+    {
+        /*
+        PullSensorsFragment newFragment = new PullSensorsFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.pull_list, newFragment);
+        transaction.commit();
+        */
+
+        getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+    }
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -121,21 +132,6 @@ public class PullSensorsFragment extends Fragment {
         }
     }
 
-    public void update()
-    {
-        getFragmentManager().beginTransaction().detach(this).attach(this).commit();
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
         void onListFragmentInteraction(SensorItem item);

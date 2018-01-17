@@ -3,6 +3,7 @@ package jauts.org.jnabatteryoptimiser.views.activity;
 import android.Manifest;
 import android.annotation.TargetApi;
 
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -54,17 +55,19 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
     private PagerAdapter mPagerAdapter;
     private SwipeRefreshLayout swipeContainer;
     private TabLayout mTabLayout;
-    /**
-     *  Swipe Refresh Listener
-     */
     private SwipeRefreshLayout.OnRefreshListener swipeRefreshListener = new SwipeRefreshLayout.OnRefreshListener()
     {
         @Override
         public void onRefresh()
         {
-            int tab_position =  mTabLayout.getSelectedTabPosition();
-            mPagerAdapter.updateItem(tab_position);
-            swipeContainer.setRefreshing(false);
+
+            new Handler().postDelayed(new Runnable() {
+                @Override public void run() {
+                    swipeContainer.setRefreshing(false);
+                    int tab_position =  mTabLayout.getSelectedTabPosition();
+                    //mPagerAdapter.updateItem(tab_position);
+                }
+            }, 1000);
         }
     };
 
@@ -73,8 +76,8 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-       mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
-       mTabLayout.addTab(mTabLayout.newTab().setText("Pull Sensors"));
+        mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        mTabLayout.addTab(mTabLayout.newTab().setText("Pull Sensors"));
         mTabLayout.addTab(mTabLayout.newTab().setText("Push Sensors"));
         mTabLayout.addTab(mTabLayout.newTab().setText("Running Apps"));
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -185,6 +188,11 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
 
     }
 
+    /*
+    /**
+     *  Swipe Refresh Listener
+     */
+
     public void toastMsg(String msg) {
         Toast toast = Toast.makeText(this, msg, Toast.LENGTH_SHORT);
         View toastView = toast.getView(); // This'll return the default View of the Toast.
@@ -198,11 +206,6 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
 
         toast.show();
     }
-
-
-
-
-    //getFragmentManager().beginTransaction().detach(this).attach(this).commit();
 
     @Override
     public void onListFragmentInteraction(SensorContent.SensorItem item) {

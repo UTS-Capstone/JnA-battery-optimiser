@@ -47,12 +47,16 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         switch(position)
         {
             case 0:
-                tab1.update();
+                if(tab1 != null) tab1.update();
+                else tab1 = new PullSensorsFragment();
             case 1:
-                tab2.update();
+                if (tab2 != null) tab2.update();
+                else tab2 = new PushSensorsFragment();
             case 2:
-                tab3.update();
+                if (tab3 != null) tab3.update();
+                else tab3 = new AppsFragment();
             default:
+                tab1 = new PullSensorsFragment();
         }
     }
 
