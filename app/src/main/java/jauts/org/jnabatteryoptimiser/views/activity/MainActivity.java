@@ -188,11 +188,6 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
 
     }
 
-    /*
-    /**
-     *  Swipe Refresh Listener
-     */
-
     public void toastMsg(String msg) {
         Toast toast = Toast.makeText(this, msg, Toast.LENGTH_SHORT);
         View toastView = toast.getView(); // This'll return the default View of the Toast.
