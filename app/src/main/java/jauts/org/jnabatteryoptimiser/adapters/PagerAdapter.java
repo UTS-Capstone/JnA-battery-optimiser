@@ -42,6 +42,24 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         }
     }
 
+    public void updateItem(int position)
+    {
+        switch(position)
+        {
+            case 0:
+                if(tab1 != null) tab1.update();
+                else tab1 = new PullSensorsFragment();
+            case 1:
+                if (tab2 != null) tab2.update();
+                else tab2 = new PushSensorsFragment();
+            case 2:
+                if (tab3 != null) tab3.update();
+                else tab3 = new AppsFragment();
+            default:
+                tab1 = new PullSensorsFragment();
+        }
+    }
+
     @Override
     public CharSequence getPageTitle(int position) {
         // Generate title based on item position

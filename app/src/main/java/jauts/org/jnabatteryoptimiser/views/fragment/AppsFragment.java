@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +29,7 @@ public class AppsFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
+    private static AppsFragment fragment;
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
@@ -41,7 +44,7 @@ public class AppsFragment extends Fragment {
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static AppsFragment newInstance(int columnCount) {
-        AppsFragment fragment = new AppsFragment();
+        fragment = new AppsFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -54,6 +57,7 @@ public class AppsFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
     }
 
     @Override
@@ -99,6 +103,27 @@ public class AppsFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+    public void update()
+    {
+        /*
+        AppsFragment newFragment = new AppsFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.apps_list, newFragment);
+        transaction.commit();
+        */
+        getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+    }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+        }
+    }
+
+
+
 
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name

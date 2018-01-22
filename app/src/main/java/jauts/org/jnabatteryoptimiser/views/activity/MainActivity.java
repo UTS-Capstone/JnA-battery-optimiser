@@ -3,6 +3,7 @@ package jauts.org.jnabatteryoptimiser.views.activity;
 import android.Manifest;
 import android.annotation.TargetApi;
 
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -14,6 +15,7 @@ import android.net.Uri;
 import android.provider.Settings;
 
 import android.support.v4.content.FileProvider;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 
 
@@ -49,29 +51,56 @@ import jauts.org.jnabatteryoptimiser.tasks.SenseFromAllPushSensorsTask;
 public class MainActivity extends AppCompatActivity implements PullSensorsFragment.OnListFragmentInteractionListener, PushSensorsFragment.OnListFragmentInteractionListener, AppsFragment.OnListFragmentInteractionListener {
 
     private Button mExportLogBtn;
+    private ViewPager mViewPager;
     private PagerAdapter mPagerAdapter;
+    private SwipeRefreshLayout swipeContainer;
+    private TabLayout mTabLayout;
+    private SwipeRefreshLayout.OnRefreshListener swipeRefreshListener = new SwipeRefreshLayout.OnRefreshListener()
+    {
+        @Override
+        public void onRefresh()
+        {
+
+            new Handler().postDelayed(new Runnable() {
+                @Override public void run() {
+                    swipeContainer.setRefreshing(false);
+                    int tab_position =  mTabLayout.getSelectedTabPosition();
+                    //mPagerAdapter.updateItem(tab_position);
+                }
+            }, 1000);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        tabLayout.addTab(tabLayout.newTab().setText("Pull Sensors"));
-        tabLayout.addTab(tabLayout.newTab().setText("Push Sensors"));
-        tabLayout.addTab(tabLayout.newTab().setText("Running Apps"));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        mTabLayout.addTab(mTabLayout.newTab().setText("Pull Sensors"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Push Sensors"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Running Apps"));
+        mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        mPagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
-        tabLayout.setupWithViewPager(viewPager);
-        viewPager.setAdapter(mPagerAdapter);
-        viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mPagerAdapter = new PagerAdapter(getSupportFragmentManager(), mTabLayout.getTabCount());
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        //swipeContainer.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) this);
 
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+        mTabLayout.setupWithViewPager(mViewPager);
+        mViewPager.setAdapter(mPagerAdapter);
+        mViewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+
+        swipeContainer = (SwipeRefreshLayout) swipeContainer.findViewById(R.id.swipeContainer);
+        swipeContainer.setOnRefreshListener(swipeRefreshListener);
+        swipeContainer.setColorSchemeColors(Color.RED, Color.GREEN, Color.BLUE, Color.CYAN);
+
+
+        mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
+                mViewPager.setCurrentItem(tab.getPosition());
             }
 
             @Override
@@ -88,7 +117,6 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
         grantLocation();
         //collectSensorData();
     }
-
 
     public Fragment getAttachedFragment(int id) {
         return mPagerAdapter.getItem(id);
@@ -136,7 +164,6 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
         toastMsg("Data exported");
     }
 
-
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void loggingServiceSwitchClick(View view)
@@ -174,8 +201,8 @@ public class MainActivity extends AppCompatActivity implements PullSensorsFragme
 
         toast.show();
     }
+
     @Override
     public void onListFragmentInteraction(SensorContent.SensorItem item) {
     }
-
 }

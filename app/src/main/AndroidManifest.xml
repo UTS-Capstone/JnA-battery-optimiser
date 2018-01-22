@@ -24,7 +24,6 @@
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
 
-
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
 
@@ -32,13 +31,13 @@
 
     <uses-feature
         android:name="android.hardware.sensor.accelerometer"
-        android:required="false" />
+        android:required="true" />
     <uses-feature
         android:name="android.hardware.sensor.gyroscope"
-        android:required="false" />
+        android:required="true" />
     <uses-feature
         android:name="android.hardware.camera"
-        android:required="false" />
+        android:required="true" />
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
