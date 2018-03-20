@@ -1,19 +1,10 @@
 package jauts.org.jnabatteryoptimiser.dummy;
 
-import android.app.Activity;
 import android.app.ActivityManager;
-import android.app.usage.UsageEvents;
-import android.app.usage.UsageStats;
-import android.app.usage.UsageStatsManager;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
-import com.jaredrummler.android.processes.AndroidProcesses;
-import com.jaredrummler.android.processes.models.AndroidAppProcess;
-import com.jaredrummler.android.processes.models.Stat;
-import com.jaredrummler.android.processes.models.Statm;
 import com.ubhave.sensormanager.sensors.SensorEnum;
 
 import org.slf4j.Logger;
@@ -21,13 +12,10 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
 
 import static android.content.Context.ACTIVITY_SERVICE;
 
@@ -70,55 +58,57 @@ public class SensorContent {
         return ENVIRONMENT_ITEMS;
     }
 
-    public static List<SensorItem> getRunningApps(Context context) throws PackageManager.NameNotFoundException, IOException {
-        /*
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 0, 0);
+    /** This function only works if adb is used or the app is rooted **/
 
-        UsageStatsManager usageStatsManager = (UsageStatsManager) context.getSystemService(Context.USAGE_STATS_SERVICE);
-        List<UsageStats> usageStatsList = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            usageStatsList = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, calendar.getTimeInMillis(), System.currentTimeMillis());
-            for (UsageStats us : usageStatsList) {
-                APP_ITEMS.add(new SensorItem(us.getPackageName(), null,null));
+    /**
+     * public static List<SensorItem> getRunningApps(Context context) throws PackageManager.NameNotFoundException, IOException {
+     * // Get a list of running apps
+     * PackageManager pm = context.getPackageManager();
+     * List<AndroidAppProcess> processes = AndroidProcesses.getRunningAppProcesses();
+     * <p>
+     * for (AndroidAppProcess process : processes) {
+     * // Get some information about the process
+     * String processName = process.name;
+     * <p>
+     * Stat stat = process.stat();
+     * int pid = stat.getPid();
+     * int parentProcessId = stat.ppid();
+     * long startTime = stat.stime();
+     * int policy = stat.policy();
+     * char state = stat.state();
+     * <p>
+     * Statm statm = process.statm();
+     * long totalSizeOfProcess = statm.getSize();
+     * long residentSetSize = statm.getResidentSetSize();
+     * <p>
+     * PackageInfo packageInfo = process.getPackageInfo(context, 0);
+     * String appName = packageInfo.applicationInfo.loadLabel(pm).toString();
+     * APP_ITEMS.add(new SensorItem(appName,null, null));
+     * logger.debug("App name: " + appName);
+     * }
+     * return APP_ITEMS;
+     * <p>
+     * }
+     */
+
+    public static List<SensorItem> getRunningApps(Context context) throws PackageManager.NameNotFoundException, IOException {
+
+        APP_ITEMS.clear();
+        Hashtable<String, List<ActivityManager.RunningServiceInfo>> hashtable = new Hashtable<String, List<ActivityManager.RunningServiceInfo>>();
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo rsi : activityManager.getRunningServices(Integer.MAX_VALUE)) {
+
+            String pkgName = rsi.service.getPackageName();
+            if (hashtable.get(pkgName) == null) {
+                List<ActivityManager.RunningServiceInfo> list = new ArrayList<ActivityManager.RunningServiceInfo>();
+                list.add(rsi);
+                hashtable.put(pkgName, list);
+                APP_ITEMS.add(new SensorItem(getApplicationLabel(context, pkgName), "" + ("" + rsi.foreground), null));
+            } else {
+                hashtable.get(pkgName).add(rsi);
             }
         }
-
-        */
-        // Get a list of running apps
-        PackageManager pm = context.getPackageManager();
-        List<AndroidAppProcess> processes = AndroidProcesses.getRunningAppProcesses();
-
-        for (AndroidAppProcess process : processes) {
-            // Get some information about the process
-            String processName = process.name;
-
-            Stat stat = process.stat();
-            int pid = stat.getPid();
-            int parentProcessId = stat.ppid();
-            long startTime = stat.stime();
-            int policy = stat.policy();
-            char state = stat.state();
-
-            Statm statm = process.statm();
-            long totalSizeOfProcess = statm.getSize();
-            long residentSetSize = statm.getResidentSetSize();
-
-            PackageInfo packageInfo = process.getPackageInfo(context, 0);
-            String appName = packageInfo.applicationInfo.loadLabel(pm).toString();
-            APP_ITEMS.add(new SensorItem(appName,null, null));
-            logger.debug("App name: " + appName);
-        }
-
-        /*
-        ActivityManager am = (ActivityManager) context.getSystemService(ACTIVITY_SERVICE);
-        List<ActivityManager.RunningAppProcessInfo> runningAppProcessInfo = am.getRunningAppProcesses();
-
-        for (int i = 0; i < runningAppProcessInfo.size(); i++) {
-            APP_ITEMS.add(new SensorItem(getApplicationLabel(context, runningAppProcessInfo.get(i).processName), null, null));
-        } */
         return APP_ITEMS;
-
     }
 
     public static String getApplicationLabel(Context context, String packageName) {
@@ -137,17 +127,15 @@ public class SensorContent {
         return label;
     }
 
-    boolean isNamedProcessRunning(Context context, String processName){
+    boolean isNamedProcessRunning(Context context, String processName) {
         if (processName == null)
             return false;
 
         ActivityManager manager =
                 (ActivityManager) context.getSystemService(ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> processes = manager.getRunningAppProcesses();
-        for (ActivityManager.RunningAppProcessInfo process : processes)
-        {
-            if (processName.equals(process.processName))
-            {
+        for (ActivityManager.RunningAppProcessInfo process : processes) {
+            if (processName.equals(process.processName)) {
                 return true;
             }
         }
